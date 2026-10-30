@@ -1,0 +1,303 @@
+<div class="auth-page">
+
+  <!-- Left panel -->
+  <section class="brand-panel">
+
+    <div class="brand-content">
+
+      <div class="logo">
+        <span>Stansfeld</span>
+        <span>Scott</span>
+      </div>
+
+      <h1>
+        Request access to the
+        Distributor Portal.
+      </h1>
+
+      <p>
+        Tell us about your business. Our team quickly
+        reviews and approves new distributor accounts
+        within 1–2 business days.
+      </p>
+
+    </div>
+
+    <div class="copyright">
+      © 2026 Stansfeld Scott. All rights reserved.
+    </div>
+
+  </section>
+
+
+  <!-- Right panel -->
+  <section class="form-panel">
+
+    <div class="form-container">
+
+      <h2>{{ isInvitationLink ? 'Invitation' : 'Request Distributor Access' }}</h2>
+
+      @if (isInvitationLink) {
+        <p class="subtitle">Checking your invitation...</p>
+        @if (invitationChecking) {
+          <div class="invitation-loader" role="status" aria-live="polite">
+            <span class="spinner" aria-hidden="true"></span>
+            <span>Verifying your invitation…</span>
+          </div>
+        } @else if (invitationValid === true) {
+          <div class="info-message" role="status">{{ invitationMessage }}</div>
+        } @else if (invitationValid === false) {
+          <div class="error-message" role="alert">{{ invitationMessage }}</div>
+        }
+      } @else {
+        <p class="subtitle">
+          Registration is available from a valid invitation link.
+        </p>
+        <div class="info-message">Open the invitation link you received to register for the Distributor Portal.</div>
+      }
+
+      @if (invitationValid === true) {
+      <form
+        (ngSubmit)="submitRequest(requestForm)"
+        #requestForm="ngForm">
+
+
+        <div class="form-grid">
+
+          <!-- Company -->
+          <div class="form-group">
+
+            <label for="companyName">
+              Company name <span class="required-mark" aria-hidden="true">*</span>
+            </label>
+
+            <input
+              id="companyName"
+              name="companyName"
+              type="text"
+              [(ngModel)]="companyName"
+              placeholder="Company name"
+              readonly
+              required />
+
+          </div>
+
+
+          <!-- Distributor account -->
+          <div class="form-group">
+
+            <label for="distributorAccountNo">
+              Distributor account no. <span class="required-mark" aria-hidden="true">*</span>
+            </label>
+
+            <input
+              id="distributorAccountNo"
+              name="distributorAccountNo"
+              type="text"
+              [(ngModel)]="distributorAccountNo"
+              placeholder="Not provided"
+              readonly />
+
+          </div>
+
+
+          <!-- Contact name -->
+          <div class="form-group">
+
+            <label for="firstName">
+              First name <span class="required-mark" aria-hidden="true">*</span>
+            </label>
+
+            <input
+              id="firstName"
+              name="firstName"
+              type="text"
+              [(ngModel)]="firstName"
+              placeholder="First name"
+              required />
+
+          </div>
+
+          <div class="form-group">
+            <label for="lastName">Last name <span class="required-mark" aria-hidden="true">*</span></label>
+            <input id="lastName" name="lastName" type="text" [(ngModel)]="lastName"
+              placeholder="Last name" required />
+          </div>
+
+
+          <!-- Portal username -->
+          <div class="form-group">
+
+            <label for="username">
+              Portal username <span class="required-mark" aria-hidden="true">*</span>
+            </label>
+
+            <input
+              id="username"
+              name="username"
+              type="text"
+              [(ngModel)]="username"
+              placeholder="Choose a username"
+              minlength="3"
+              maxlength="100"
+              autocomplete="username"
+              required />
+
+          </div>
+
+
+          <!-- Portal password -->
+          <div class="form-group">
+
+            <label for="password">
+              Password <span class="required-mark" aria-hidden="true">*</span>
+            </label>
+
+            <input
+              id="password"
+              name="password"
+              type="password"
+              [(ngModel)]="password"
+              placeholder="At least 8 characters"
+              minlength="8"
+              maxlength="128"
+              autocomplete="new-password"
+              required />
+
+          </div>
+
+
+          <!-- Job title -->
+          <div class="form-group">
+
+            <label for="jobTitle">
+              Job title <span class="required-mark" aria-hidden="true">*</span>
+            </label>
+
+            <input
+              id="jobTitle"
+              name="jobTitle"
+              type="text"
+              [(ngModel)]="jobTitle"
+              placeholder="e.g. Purchasing Manager"
+              required />
+
+          </div>
+
+
+          <!-- Email -->
+          <div class="form-group">
+
+            <label for="email">
+              Work email <span class="required-mark" aria-hidden="true">*</span>
+            </label>
+
+            <input
+              id="email"
+              name="email"
+              type="email"
+              [(ngModel)]="email"
+              placeholder="name@company.com"
+              required
+              email />
+
+          </div>
+
+
+          <!-- Phone -->
+          <div class="form-group">
+
+            <label for="phone">
+              Phone <span class="required-mark" aria-hidden="true">*</span>
+            </label>
+
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              [(ngModel)]="phone"
+              placeholder="(555) 555-0100"
+              required />
+
+          </div>
+
+
+          <!-- Region -->
+          <div class="form-group">
+
+            <label for="region">
+              Region / territory <span class="required-mark" aria-hidden="true">*</span>
+            </label>
+
+            <select
+              id="region"
+              name="region"
+              [(ngModel)]="countryId"
+              (ngModelChange)="updateSelectedCountry()"
+              required>
+
+              <option value="" disabled>
+                Select a region...
+              </option>
+
+              @for (country of countries; track country.countryId) {
+                <option [value]="country.countryId">{{ country.name }}</option>
+              }
+
+            </select>
+
+          </div>
+
+
+        </div>
+
+        @if (countryLoadError) {
+          <div class="error-message" role="alert">{{ countryLoadError }}</div>
+        }
+
+
+        <!-- Information message -->
+        <div class="info-message">
+          Your request is sent for review. You will be able to sign in after approval.
+        </div>
+
+        @if (submitted) {
+          <div class="info-message" role="status">Your request has been sent for review.</div>
+        }
+        @if (errorMessage) {
+          <div class="error-message" role="alert">{{ errorMessage }}</div>
+        }
+
+
+        <button
+          type="submit"
+          class="primary-button"
+          [disabled]="submitting || submitted">
+
+          @if (submitting) { <span class="spinner button-spinner" aria-hidden="true"></span> Submitting… } @else { {{ submitted ? 'Request Submitted' : 'Submit Request' }} }
+
+        </button>
+
+
+        <div class="already-account">
+
+          <span>Already have an account?</span>
+
+          <button
+            type="button"
+            (click)="signIn()">
+
+            Sign in
+
+          </button>
+
+        </div>
+
+      </form>
+      }
+
+    </div>
+
+  </section>
+
+</div>

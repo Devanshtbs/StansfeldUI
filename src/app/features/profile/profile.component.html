@@ -1,0 +1,77 @@
+<div class="profile-shell">
+  @if (toastMessage) { <div class="toast" [class.error]="toastType === 'error'" [class.success]="toastType === 'success'" [attr.role]="toastType === 'error' ? 'alert' : 'status'"><span>{{ toastMessage }}</span><button type="button" (click)="dismissToast()" aria-label="Dismiss notification">×</button></div> }
+  <header class="topbar">
+    <a class="brand" routerLink="/profile" aria-label="Stansfeld Scott profile"><span>Stansfeld</span><span>Scott</span></a>
+    <div class="top-actions"><a routerLink="/distributor-workspace">Workspace</a><button type="button" (click)="signOut()">Sign out</button></div>
+  </header>
+
+  <main class="content">
+    <div class="page-title"><div><p class="eyebrow">Distributor Portal</p><h1>Profile</h1><p class="intro">Manage your personal details, account information, and business references.</p></div></div>
+
+    @if (loading) { <div class="status-card" role="status"><span class="spinner"></span> Loading your profile…</div> }
+
+    @if (!loading && profile) {
+      <section class="card">
+        <div class="section-heading"><div><h2>Your profile</h2><p>Your personal contact details.</p></div></div>
+        <form (ngSubmit)="saveProfile()" #profileFormRef="ngForm" class="form-grid">
+          <label>First name <span>*</span><input name="profileFirstName" [(ngModel)]="profileForm.firstName" (ngModelChange)="onProfileChanged()" required maxlength="80"></label>
+          <label>Last name <span>*</span><input name="profileLastName" [(ngModel)]="profileForm.lastName" (ngModelChange)="onProfileChanged()" required maxlength="80"></label>
+          <label>Email <span>*</span><input name="profileEmail" type="email" [(ngModel)]="profileForm.email" (ngModelChange)="onProfileChanged()" required email maxlength="254"></label>
+          <label>Phone<input name="profilePhone" [(ngModel)]="profileForm.phone" (ngModelChange)="onProfileChanged()" maxlength="50"></label>
+          <label>Job title<input name="profileJobTitle" [(ngModel)]="profileForm.jobTitle" (ngModelChange)="onProfileChanged()" maxlength="100"></label>
+          <div class="form-actions"><button class="primary" type="submit" [disabled]="profileFormRef.invalid || savingProfile || (!profileDirty && !contactsChanged)">@if (savingProfile) { <span class="spinner button-spinner" aria-hidden="true"></span> Saving… } @else { Save }</button></div>
+        </form>
+      </section>
+
+      <section class="card">
+        <div class="section-heading"><div><h2>Account profile</h2><p>Account details linked to your profile.</p></div></div>
+        @if (profile.account) {
+          <form (ngSubmit)="saveAccount()" #accountFormRef="ngForm" class="form-grid">
+            <label>Company name <span>*</span><input name="accountName" [(ngModel)]="accountForm.name" (ngModelChange)="onAccountChanged()" required maxlength="160"></label>
+            <label>Account number<input name="accountNumber" [(ngModel)]="accountForm.accountNumber" (ngModelChange)="onAccountChanged()" maxlength="40"></label>
+            <label>Phone<input name="accountPhone" [(ngModel)]="accountForm.phone" (ngModelChange)="onAccountChanged()" maxlength="50"></label>
+            <label>Website<input name="accountWebsite" type="url" [(ngModel)]="accountForm.website" (ngModelChange)="onAccountChanged()" maxlength="200"></label>
+            <label>City<input name="accountCity" [(ngModel)]="accountForm.city" (ngModelChange)="onAccountChanged()" maxlength="80"></label>
+            <label>State / Province<input name="accountState" [(ngModel)]="accountForm.stateOrProvince" (ngModelChange)="onAccountChanged()" maxlength="80"></label>
+            <label>Country<input name="accountCountry" [(ngModel)]="accountForm.country" (ngModelChange)="onAccountChanged()" maxlength="100"></label>
+            <label>Postal code<input name="accountPostalCode" [(ngModel)]="accountForm.postalCode" (ngModelChange)="onAccountChanged()" maxlength="20"></label>
+            <div class="form-actions"><button class="primary" type="submit" [disabled]="accountFormRef.invalid || savingAccount || !accountDirty">@if (savingAccount) { <span class="spinner button-spinner" aria-hidden="true"></span> Saving… } @else { Save }</button></div>
+          </form>
+        } @else { <p class="empty">Your profile is not currently linked to an account.</p> }
+      </section>
+
+      <section class="card">
+        <div class="section-heading"><div><h2>Business References</h2><p>Business associated with your Account.</p></div><button class="secondary" type="button" (click)="openAddContact()" [disabled]="!profile.account">Add business reference</button></div>
+        @if (contactFormOpen) {
+          <form (ngSubmit)="saveContact()" #contactFormRef="ngForm" class="contact-editor">
+            <h3>{{ editingContactId ? 'Edit business reference' : 'Add business reference' }}</h3>
+            <div class="form-grid">
+              <label>First name <span>*</span><input name="otherFirstName" [(ngModel)]="contactForm.firstName" required maxlength="80"></label>
+              <label>Last name <span>*</span><input name="otherLastName" [(ngModel)]="contactForm.lastName" required maxlength="80"></label>
+              <label>Job title<input name="otherJobTitle" [(ngModel)]="contactForm.jobTitle" maxlength="100"></label>
+              <label>Email <span>*</span><input name="otherEmail" type="email" [(ngModel)]="contactForm.email" required email maxlength="254"></label>
+              <label>Phone<input name="otherPhone" [(ngModel)]="contactForm.phone" maxlength="50"></label>
+            </div>
+            <div class="editor-actions"><button class="primary" type="submit" [disabled]="contactFormRef.invalid || savingContact">@if (savingContact) { <span class="spinner button-spinner" aria-hidden="true"></span> Saving… } @else { Save }</button><button class="secondary" type="button" (click)="cancelContactForm()">Cancel</button></div>
+          </form>
+        }
+        @if (profile.otherContacts.length) {
+          <div class="table-wrap"><table><thead><tr><th>Name</th><th>Job title</th><th>Email</th><th>Phone</th><th>Actions</th></tr></thead><tbody>
+            @for (contact of profile.otherContacts; track contact.contactId) {
+              <tr><td>{{ contact.fullName }}</td><td>{{ contact.jobTitle || '—' }}</td><td>{{ contact.email || '—' }}</td><td>{{ contact.phone || '—' }}</td><td class="row-actions"><button type="button" (click)="openEditContact(contact)">Edit</button><button type="button" class="delete" (click)="deleteContact(contact)" [disabled]="deletingContactId === contact.contactId">@if (deletingContactId === contact.contactId) { <span class="spinner button-spinner" aria-hidden="true"></span> Deleting… } @else { Delete }</button></td></tr>
+            }
+          </tbody></table></div>
+        } @else if (!contactFormOpen) { <p class="empty">There are no business references linked to this Account yet.</p> }
+      </section>
+
+      <section class="card">
+        <div class="section-heading"><div><h2>Account documents</h2><p>Upload a PDF document to this account. Maximum file size: 20 MB.</p><p class="upload-guidance">Upload signed document for approval to move to the next step.</p></div></div>
+        <div class="upload-controls">
+          <label class="file-picker">Choose PDF<input type="file" accept="application/pdf,.pdf" (change)="onPdfSelected($event)"></label>
+          @if (selectedPdf) { <span class="selected-file">{{ selectedPdf.name }}</span> }
+          <button class="primary" type="button" (click)="uploadPdf()" [disabled]="!selectedPdf || uploadingDocument">@if (uploadingDocument) { <span class="spinner button-spinner" aria-hidden="true"></span> Uploading… } @else { Upload signed document }</button>
+        </div>
+      </section>
+    }
+  </main>
+</div>

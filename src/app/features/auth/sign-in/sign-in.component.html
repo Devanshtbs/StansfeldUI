@@ -1,0 +1,67 @@
+<div class="auth-page">
+  <section class="brand-panel">
+    <div class="brand-content">
+      <div class="logo" aria-label="Stansfeld Scott">
+        <span>Stansfeld</span>
+        <span>Scott</span>
+      </div>
+
+      <h1>The distributor portal for Stansfeld Scott partners.</h1>
+      <p>Place orders, track shipments, manage invoices, and submit AMP claims — all from one place.</p>
+    </div>
+
+    <div class="copyright">© 2026 Stansfeld Scott. For distributor use only.</div>
+  </section>
+
+  <section class="form-panel">
+    <div class="form-container">
+      <h2>Sign in</h2>
+      <p class="subtitle">Enter your distributor account credentials.</p>
+
+      <form (ngSubmit)="signIn()" #signInForm="ngForm">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            autocomplete="username"
+            [(ngModel)]="username"
+            placeholder="Enter your username"
+            required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            [(ngModel)]="password"
+            placeholder="Enter your password"
+            required />
+        </div>
+
+        <div class="forgot-password">
+          <button type="button" (click)="forgotPassword()">Forgot password?</button>
+        </div>
+
+        @if (errorMessage) {
+          <div class="error-message" role="alert">{{ errorMessage }}</div>
+        }
+
+        <button class="primary-button" type="submit" [disabled]="signInForm.invalid || signingIn">
+          @if (signingIn) { <span class="spinner button-spinner" aria-hidden="true"></span> Signing in… } @else { Sign In }
+        </button>
+      </form>
+
+      <div class="divider"><span>OR</span></div>
+
+      <div class="request-access">
+        <span>New distributor?</span>
+        <button type="button" (click)="requestAccess()">Request portal access</button>
+      </div>
+    </div>
+  </section>
+</div>

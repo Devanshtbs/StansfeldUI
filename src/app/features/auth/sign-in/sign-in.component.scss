@@ -1,0 +1,218 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  background: #eef2f5;
+}
+
+.brand-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px 32px 24px;
+  color: #fff;
+  background: #075b61;
+}
+
+.brand-content {
+  max-width: 320px;
+}
+
+.logo {
+  width: 74px;
+  height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+  border-radius: 5px;
+  background: #fff;
+  color: #075b61;
+  font-family: Georgia, serif;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 12px;
+}
+
+.brand-content h1 {
+  margin: 0 0 14px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.brand-content p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.7;
+  opacity: 0.88;
+}
+
+.copyright {
+  font-size: 9px;
+  opacity: 0.7;
+}
+
+.form-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 354px;
+}
+
+.form-container h2 {
+  margin: 0 0 5px;
+  color: #20282b;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin: 0 0 26px;
+  color: #7b8588;
+  font-size: 11px;
+}
+
+.form-group {
+  margin-bottom: 13px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  color: #394346;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  height: 38px;
+  box-sizing: border-box;
+  padding: 0 11px;
+  border: 1px solid #d8dee1;
+  border-radius: 5px;
+  outline: none;
+  background: #fff;
+  color: #252b2d;
+  font-size: 11px;
+}
+
+.form-group input:focus {
+  border-color: #147a76;
+  box-shadow: 0 0 0 2px rgb(20 122 118 / 12%);
+}
+
+.form-group input::placeholder {
+  color: #a8afb2;
+}
+
+.forgot-password {
+  margin: -5px 0 17px;
+  text-align: right;
+}
+
+.forgot-password button,
+.request-access button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #147a76;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-button {
+  width: 100%;
+  height: 40px;
+  border: 0;
+  border-radius: 4px;
+  background: #147a76;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-button:hover:not(:disabled) {
+  background: #106863;
+}
+
+.primary-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 7px;
+  vertical-align: -2px;
+  border: 2px solid rgb(255 255 255 / 45%);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: sign-in-spin .8s linear infinite;
+}
+
+@keyframes sign-in-spin { to { transform: rotate(360deg); } }
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 17px 0;
+  color: #8a94a0;
+  font-size: 10px;
+}
+
+.divider::before,
+.divider::after {
+  height: 1px;
+  flex: 1;
+  background: #e0e4e6;
+  content: '';
+}
+
+.request-access {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  color: #7d8588;
+  font-size: 10px;
+}
+
+.error-message {
+  margin: 0 0 12px;
+  color: #a4262c;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .auth-page {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-panel {
+    display: none;
+  }
+
+  .form-panel {
+    min-height: 100vh;
+    padding: 30px 18px;
+  }
+}

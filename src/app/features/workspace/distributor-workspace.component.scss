@@ -1,0 +1,80 @@
+:host { display: block; min-height: 100vh; color: #1f2937; }
+
+.workspace-gate { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px; box-sizing: border-box; background: #eef1f2; text-align: center; }
+.workspace-gate h1 { margin: 0; color: #1d2934; font-size: 22px; }
+.workspace-gate p { margin: 0; color: #657181; font-size: 14px; }
+.workspace-gate button { min-height: 40px; margin-top: 5px; padding: 0 16px; border: 0; border-radius: 5px; background: #147a76; color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+.workspace-spinner { width: 22px; height: 22px; border: 3px solid #ccd9da; border-top-color: #147a76; border-radius: 50%; animation: workspace-spin .8s linear infinite; }
+@keyframes workspace-spin { to { transform: rotate(360deg); } }
+
+.workspace { min-height: 100vh; display: grid; grid-template-columns: 222px minmax(0, 1fr); background: #eef1f2; }
+.sidebar { position: relative; display: flex; flex-direction: column; min-height: 100vh; padding: 16px 9px 92px; background: #125861; color: #d6e7e8; }
+.brand { display: flex; align-items: center; gap: 10px; padding: 0 8px 22px; }
+.logo { width: 75px; height: 42px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 5px; background: #fff; color: #075b61; font-family: Georgia, serif; font-size: 11px; font-style: italic; font-weight: 700; line-height: 11px; }
+.portal-label { font-size: 10px; white-space: nowrap; }
+.sidebar nav { display: flex; flex-direction: column; gap: 2px; }
+.nav-item { display: flex; align-items: center; gap: 11px; min-height: 35px; padding: 0 11px; border: 0; border-radius: 6px; background: transparent; color: #d6e7e8; text-align: left; font: inherit; font-size: 11px; cursor: pointer; }
+.nav-item.active { background: #fff; color: #125861; font-weight: 600; }
+.nav-icon { width: 15px; text-align: center; font-size: 14px; }
+.subnav { display: grid; gap: 0; padding: 2px 0 9px 35px; }
+.subnav a { padding: 6px 0; color: #c3ddde; font-size: 10px; text-decoration: none; }
+.subnav a::before { margin-right: 8px; color: #75aaa9; content: '•'; }
+.nav-heading { margin: 12px 0 3px; padding: 0 11px; color: #79b5b5; font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.profile { position: absolute; right: 0; bottom: 0; left: 0; display: flex; align-items: center; gap: 9px; min-height: 76px; padding: 12px 12px; border-top: 1px solid rgb(255 255 255 / 14%); }
+.profile-identity { display: flex; flex: 1; align-items: center; gap: 9px; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; text-align: left; cursor: pointer; }
+.avatar { width: 29px; height: 29px; display: grid; place-items: center; border-radius: 50%; background: #1f8f86; color: #fff; font-size: 11px; font-weight: 700; }
+.profile-text { display: grid; min-width: 0; gap: 4px; }
+.profile-text strong { overflow: hidden; color: #fff; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.profile-text small { overflow: hidden; color: #c3ddde; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+.profile-actions { display: grid; gap: 5px; }
+.profile-actions button { padding: 0; border: 0; background: transparent; color: #c3ddde; font-size: 9px; cursor: pointer; }
+
+.main-content { width: min(100%, 1400px); margin: 0 auto; padding: 22px 26px 30px; }
+.page-header { margin-bottom: 17px; }
+.page-header h1 { margin: 0 0 4px; color: #1d2934; font-size: 20px; font-weight: 650; }
+.page-header p { margin: 0; color: #8290a0; font-size: 10px; }
+.page-header strong { color: #586574; font-weight: 600; }
+.chart-card, .metric-card { border: 1px solid #e3e8eb; border-radius: 6px; background: #fff; }
+.chart-card { padding: 17px 18px 13px; }
+.card-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.card-heading h2, .self-service h2 { margin: 0; color: #26313a; font-size: 12px; font-weight: 650; }
+.legend { display: flex; align-items: center; gap: 6px; color: #7a8795; font-size: 9px; }
+.placed-key, .shipped-key { width: 8px; height: 8px; display: inline-block; border-radius: 1px; }
+.placed-key { margin-left: 8px; background: #1f8f86; }
+.shipped-key { margin-left: 8px; background: #697383; }
+.chart { height: 210px; display: grid; grid-template-columns: repeat(6, 1fr); align-items: end; gap: 12px; margin-top: 13px; border-bottom: 1px solid #dfe5e8; }
+.month { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; color: #657181; font-size: 9px; }
+.bars { width: 100%; height: 178px; display: flex; align-items: end; justify-content: center; gap: 6px; }
+.bars i { width: 17px; max-height: 100%; border-radius: 2px 2px 0 0; background: #1f8f86; }
+.bars i + i { background: #697383; }
+.month span { width: 100%; padding: 6px 0 2px; text-align: center; }
+.metric-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; margin-top: 14px; }
+.metric-card { position: relative; min-height: 78px; padding: 14px 16px; }
+.metric-card > span { display: block; color: #8692a0; font-size: 10px; }
+.metric-card > strong { display: block; margin-top: 7px; color: #17212c; font-size: 21px; line-height: 1; }
+.self-service { margin-top: 18px; }
+.self-service h2 { margin-bottom: 11px; }
+.self-service-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; }
+.self-service-grid .metric-card { min-height: 80px; }
+.self-service-grid .metric-card > strong { font-size: 20px; }
+.metric-card small { position: absolute; right: 13px; bottom: 13px; padding: 4px 8px; border-radius: 10px; background: #e7f0ff; color: #2468b1; font-size: 8px; font-weight: 600; }
+.metric-card small.green-tag { background: #def4ed; color: #18856f; }
+.metric-card small.amber-tag { background: #fff0d8; color: #b06b09; }
+
+@media (max-width: 800px) {
+  .workspace { grid-template-columns: 1fr; }
+  .sidebar { min-height: auto; padding: 12px; }
+  .sidebar nav, .profile { display: none; }
+  .brand { padding-bottom: 0; }
+  .main-content { padding: 18px 14px 24px; }
+  .metric-grid, .self-service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .chart { gap: 3px; }
+  .bars i { width: 11px; }
+}
+
+@media (max-width: 480px) {
+  .metric-grid, .self-service-grid { grid-template-columns: 1fr; }
+  .card-heading { align-items: flex-start; flex-direction: column; }
+  .chart-card { padding: 14px 10px 10px; }
+  .legend { flex-wrap: wrap; }
+}

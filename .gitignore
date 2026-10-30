@@ -1,0 +1,18 @@
+## Dependencies
+/node_modules
+
+## Build output
+/dist
+/out-tsc
+/.angular/cache
+
+## Environments with real secrets (keep the checked-in placeholder files, ignore local overrides only)
+src/environments/environment.local.ts
+
+## IDE
+.vscode/
+.idea/
+
+## OS
+.DS_Store
+Thumbs.db

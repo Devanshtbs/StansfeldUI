@@ -1,0 +1,26 @@
+/* Design tokens carried over from the approved HTML mockup.
+   Feature components should reference these variables rather than
+   hard-coding colors, so the Angular build stays visually identical. */
+:root {
+  --sidebar-bg: #125861;
+  --sidebar-text: #a9c8cb;
+  --teal: #1f8f86;
+  --teal-dark: #0c3a40;
+  --page-bg: #eef1f2;
+  --border: #e6e9ec;
+  --text-dark: #1f2937;
+  --text-mid: #5b6572;
+  --text-light: #8a94a0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  background: var(--page-bg);
+  color: var(--text-dark);
+}

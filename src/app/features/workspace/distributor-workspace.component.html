@@ -1,0 +1,90 @@
+@if (checkingWorkspaceAccess) {
+  <main class="workspace-gate" role="status"><span class="workspace-spinner" aria-hidden="true"></span> Checking your account approval…</main>
+} @else if (!workspaceAccessGranted) {
+  <main class="workspace-gate" role="alert">
+    <h1>Workspace access unavailable</h1>
+    <p>{{ accessMessage }}</p>
+    <button type="button" (click)="openProfile()">Back to profile</button>
+  </main>
+} @else {
+<div class="workspace">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo"><span>Stansfeld</span><span>Scott</span></div>
+      <span class="portal-label">Distributor Portal</span>
+    </div>
+
+    <nav aria-label="Distributor portal">
+      <button class="nav-item active" type="button"><span class="nav-icon">▦</span>Dashboard</button>
+      <div class="subnav">
+        <a href="#order-status">Order Status</a>
+        <a href="#shipment-tracking">Shipment Tracking</a>
+        <a href="#demand-forecast">Demand Forecast</a>
+        <a href="#amp-claims">AMP Claims</a>
+      </div>
+
+      <div class="nav-heading">Orders</div>
+      <button class="nav-item" type="button"><span class="nav-icon">＋</span>Create Order</button>
+      <button class="nav-item" type="button"><span class="nav-icon">◷</span>Order History</button>
+
+      <div class="nav-heading">Documents</div>
+      <button class="nav-item" type="button"><span class="nav-icon">▤</span>Invoices</button>
+      <button class="nav-item" type="button"><span class="nav-icon">⇩</span>Documents</button>
+    </nav>
+
+    <div class="profile">
+      <button class="profile-identity" type="button" (click)="openProfile()" aria-label="Open profile">
+        <span class="avatar">{{ fullName.charAt(0).toUpperCase() }}</span>
+        <span class="profile-text">
+          <strong>{{ fullName }}</strong>
+          <small>{{ accountName }}</small>
+        </span>
+      </button>
+      <div class="profile-actions">
+        <button type="button" (click)="signOut()">Sign out</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="page-header">
+      <h1>Distributor Workspace</h1>
+      <p>Dashboard / <strong>Distributor Dashboard</strong></p>
+    </header>
+
+    <section class="chart-card" aria-label="Order performance overview">
+      <div class="card-heading">
+        <h2>Order Performance Overview</h2>
+        <div class="legend"><span class="placed-key"></span>Orders Placed <span class="shipped-key"></span>Orders Shipped</div>
+      </div>
+      <div class="chart">
+        <div class="month"><div class="bars"><i style="height: 68px"></i><i style="height: 42px"></i></div><span>Jan</span></div>
+        <div class="month"><div class="bars"><i style="height: 91px"></i><i style="height: 53px"></i></div><span>Feb</span></div>
+        <div class="month"><div class="bars"><i style="height: 82px"></i><i style="height: 40px"></i></div><span>Mar</span></div>
+        <div class="month"><div class="bars"><i style="height: 119px"></i><i style="height: 65px"></i></div><span>Apr</span></div>
+        <div class="month"><div class="bars"><i style="height: 105px"></i><i style="height: 57px"></i></div><span>May</span></div>
+        <div class="month"><div class="bars"><i style="height: 150px"></i><i style="height: 82px"></i></div><span>Jun</span></div>
+      </div>
+    </section>
+
+    <section class="metric-grid" aria-label="Account summary">
+      <article class="metric-card"><span>Open Orders</span><strong>18</strong></article>
+      <article class="metric-card"><span>Pending Approval</span><strong>4</strong></article>
+      <article class="metric-card"><span>Posted Invoices</span><strong>32</strong></article>
+      <article class="metric-card"><span>Active Shipments</span><strong>7</strong></article>
+      <article class="metric-card"><span>Open Quotes</span><strong>6</strong></article>
+      <article class="metric-card"><span>AMP Claims Pending</span><strong>3</strong></article>
+    </section>
+
+    <section class="self-service">
+      <h2>Self-Service Dashboards</h2>
+      <div class="self-service-grid">
+        <article class="metric-card" id="order-status"><span>Order Status</span><strong>18</strong><small>12 in transit</small></article>
+        <article class="metric-card" id="shipment-tracking"><span>Shipment Tracking</span><strong>7</strong><small class="green-tag">4 arriving this week</small></article>
+        <article class="metric-card" id="demand-forecast"><span>Demand Forecast</span><strong>Q3</strong><small class="amber-tag">+8% vs. last qtr.</small></article>
+        <article class="metric-card" id="amp-claims"><span>AMP Claims</span><strong>3</strong><small class="amber-tag">Action needed</small></article>
+      </div>
+    </section>
+  </main>
+</div>
+}
